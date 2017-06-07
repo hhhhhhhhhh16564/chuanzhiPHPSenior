@@ -1,0 +1,123 @@
+create table if not exists table2 (
+id2 tinyint(10),
+c1 varchar(20),
+c2 varchar(20)
+);
+
+
+insert into jointable1 (id, f1, f2) values 
+(1, 'a1', 'b1'),
+(2, 'a12', 'b2'),
+(3, 'a3', 'b3');
+
+insert into jointable2 (id2, c1, c2) values
+(11, 'a1', 'b11'),
+(12, 'a12', 'b12'),
+(12, 'a13', 'b13');
+
+select * from jointable1 join jointable2;
+
+select * from jointable1 join jointable2 on jointable1.f1 = jointable2.c1;
+
+select * from jointable1 left join jointable2 on jointable1.f1 = jointable2.c1;
+
+select * from jointable1 right join jointable2 on jointable1.f1 = jointable2.c1;
+//全连接
+select * from jointable1 full join jointable2 on jointable1.f1 = jointable2.c1;
+
+
+//全连接mysql不支持 ，用下面可以实现
+select * from jointable1 left join jointable2 on jointable1.f1 = jointable2.c1 union select * from jointable1 right join jointable2 on jointable1.f1 = jointable2.c1;
+
+
+select t1.* from product as t1 join product_type as t2 on t1.protype_id = t2.protype_id;
+
+// 子查询
+
+1. 找出索尼4G手机所属类别名称：
+
+//子查询
+select protype_name from product_type where protype_id in (
+select protype_id from product where pro_name like '%索尼%' and pro_name like '%4G手机%'
+);
+//连接查询
+select t2.protype_name from product as t1 join product_type as t2 on t1.protype_id = t2.protype_id where t1.pro_name like '%索尼%' and pro_name like '%4G手机%';
+
+
+
+2. 找出所有属于手机数码的产品
+
+select * from product where protype_id in (
+select protype_id from product_type where protype_name = '手机数码'
+);
+
+select t1.* from product as t1 join product_type as t2 on t1.protype_id = t2.protype_id where t2.protype_name = '手机数码';
+
+
+3. 找出所有大于平均价的商品。
+
+//正确
+select t1.* from product as t1 where price >= (
+select avg(price) from product
+)
+
+//错误 （给表起一个别名时不能继承)
+select t1.* from t1 where price >= (
+select avg(price) from product as t1
+);
+
+
+4. 找出所有带“电”字的类别的产品
+select * from product where protype_id in (
+select protype_id from product_type where protype_name like '%电%'
+);
+
+select t1.* from product as t1 join product_type as t2 on t1.protype_id = t2.protype_id where t2.protype_name like '%电%';
+
+select * from product where protype_id = any(
+select protype_id from product_type where protype_name like '%电%'
+);
+
+
+5. 找出产品表中的价格最高的产品。
+
+select t1.* from product as t1 where price >=  all(
+select price from product
+)
+
+select t1.* from product as t1 order by price desc limit 1;
+
+
+
+6. 找出具有在售商品的那些类别：
+
+select  *  from  product_type  where  exists(
+select  *  from  product  where product.protype_id=product_type.protype_id 
+)
+
+
+
+6. 找出还没有售商品的那些类别：
+
+select  *  from  product_type  where  exists(
+select  *  from  product  where product.protype_id=product_type.protype_id 
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
