@@ -126,10 +126,21 @@ $result = mysql_query($sql);
   }
   $couunt = 3;
   $start = ($page-1) * $couunt;
-  $sql = "select * from stu_info where 1 order by id desc limit $start, $couunt";
+  $sql = "select * from stu_info where 0 order by id desc limit $start, $couunt";
 
 // echo $sql;
 $result = mysql_query($sql);
+
+$rec = mysql_fetch_assoc($result);
+
+if ($rec) {
+	
+	echo "有值";
+}else{
+	echo "没有值";
+}
+echo "<br/>";
+
 $fileName = $_SERVER['SCRIPT_NAME'];
 
   if ($result === false) {

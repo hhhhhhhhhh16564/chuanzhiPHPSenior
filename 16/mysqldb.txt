@@ -1,0 +1,1 @@
+O:7:"MySQLDB":4:{s:4:"host";s:9:"localhost";s:8:"username";s:4:"root";s:8:"password";s:3:"123";s:6:"dbname";s:5:"php34";}
