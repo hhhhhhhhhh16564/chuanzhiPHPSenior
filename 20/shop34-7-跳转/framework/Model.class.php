@@ -12,7 +12,7 @@ class Model {
 	 */
 	protected function _initDAO() {
 				//初始化MySQLDB
-		$config = array('host' => '127.0.0.1',	'port' => '3306', 'username'=>'shop34', 'password' => '1234abcd', 'charset'=>'utf8', 'dbname'=>'shop34');
+		$config = array('host' => '127.0.0.1',	'port' => '3306', 'username'=>'root', 'password' => '12345678', 'charset'=>'utf8', 'dbname'=>'shop34');
 		$this->_dao = MySQLDB::getInstance($config);//$dao , Database Access Object 数据库操作对象（dao层）
 	}
 

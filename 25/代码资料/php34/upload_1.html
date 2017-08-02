@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>文件上传表单</title>
+</head>
+<body>
+	<form action="upload_1.php" method="POST" enctype="multipart/form-data">
+		<input type="hidden" name="MAX_FILE_SIZE" value="650000" />
+		字符串型数据：<input type="text" name="title" />
+		<br/>
+		文件类型：<input type="file" name="pic[parent]" />
+		<br />
+		文件类型：<input type="file" name="pic[]" />
+		<br />
+		文件类型：<input type="file" name="pic[child]" />
+		<br />
+		文件类型：<input type="file" name="logo" />
+		<br />
+		<input type="submit" />
+	</form>
+</body>
+</html>
